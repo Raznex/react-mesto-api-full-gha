@@ -1,0 +1,25 @@
+.login__field {
+    border: 0;
+    height: 27px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #CCCCCC;
+    margin: 0 0 30px;
+    padding-bottom: 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: transparent;
+    width: 100%;
+    color: white;
+}
+
+.login__field:last-of-type {
+    margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .login__field {
+        margin: 0 0 30px;
+    }
+}
