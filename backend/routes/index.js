@@ -6,7 +6,7 @@ const signUpRouter = require('./signup');
 const userRouter = require('./users');
 const cardRouter = require('./cards');
 const NotFoundErr = require('../errors/notFound');
-const cors = require('./middlewares/cors');
+const cors = require('cors');
 
 const allowedCors = [
   'https://praktikum.tk',
