@@ -2,7 +2,6 @@ const router = require('express').Router();
 const cors = require('cors');
 
 const auth = require('../middlewares/auth');
-const { requestLogger, errorLogger } = require('../middlewares/logger');
 
 const signInRouter = require('./signin');
 const signUpRouter = require('./signup');
@@ -18,7 +17,6 @@ const allowedCors = [
   'https://mesto.raznex.nomoredomains.rocks',
 ];
 
-router.use(requestLogger);
 router.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

@@ -27,7 +27,8 @@ export const register = (email, password) => {
 export const authorize  = (email, password) => {
     return makeRequest('/signin', 'POST', {email, password}).then((res) => {
         if (res.token) {
-            localStorage.setItem("jwt", res.token);
+            localStorage.setItem("token", res.token);
+            console.log(res.token)
         }
         return res;
     });

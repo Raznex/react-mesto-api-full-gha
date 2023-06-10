@@ -150,15 +150,18 @@ function App() {
         setIsSuccess(successed);
     }
 
+    function regError(err) {
+        setErrorMessage(err);
+    }
+
     const cbCheckToken = () => {
-        if (localStorage.getItem("jwt")) {
+        if (localStorage.getItem("token")) {
             auth
-                .getToken(localStorage.getItem("jwt"))
+                .getToken(localStorage.getItem("token"))
                 .then((res) => {
-                    console.log(res);
                     if (res) {
                         setLoggedIn(true);
-                        setUserData(res.data.email);
+                        setUserData(res.user.email);
                         navigate("/", {replace: true});
                     }
                 })
@@ -175,7 +178,7 @@ function App() {
         auth
             .register(formValue.email, formValue.password)
             .then((res) => {
-                if (res.error === 'Пользователь с таким email уже зарегистрирован') {
+                if (res.error === 'Bad Request') {
                     regSuccess(false);
                 } else {
                     console.log(res)
@@ -187,6 +190,8 @@ function App() {
                 if (err.response && err.response.status === 400) {
                     regSuccess(false);
                     console.log("Error: Email already taken");
+                } else {
+                    regError(err);
                 }
             })
             .finally(() => setIsLoading(false));
@@ -216,7 +221,7 @@ function App() {
     function cbLogout() {
         setLoggedIn(false);
         setUserData('')
-        localStorage.removeItem('jwt')
+        localStorage.removeItem('token')
     }
 
     return (
