@@ -150,10 +150,6 @@ function App() {
         setIsSuccess(successed);
     }
 
-    function regError(err) {
-        setErrorMessage(err);
-    }
-
     const cbCheckToken = () => {
         if (localStorage.getItem("jwt")) {
             auth
@@ -191,8 +187,6 @@ function App() {
                 if (err.response && err.response.status === 400) {
                     regSuccess(false);
                     console.log("Error: Email already taken");
-                } else {
-                    regError(err);
                 }
             })
             .finally(() => setIsLoading(false));

@@ -1,4 +1,4 @@
-const BASE_URL = 'api.mesto.raznex.nomoredomains.rocks'
+const BASE_URL = 'https://api.mesto.raznex.nomoredomains.rocks'
 
 
 function makeRequest(url, method, body, token) {

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cors = require('cors');
 
 const auth = require('../middlewares/auth');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
@@ -8,6 +9,14 @@ const signUpRouter = require('./signup');
 const userRouter = require('./users');
 const cardRouter = require('./cards');
 const NotFoundErr = require('../errors/notFound');
+const allowedCors = [
+  'https://praktikum.tk',
+  'http://praktikum.tk',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://mesto.raznex.nomoredomains.rocks',
+  'https://mesto.raznex.nomoredomains.rocks',
+];
 
 router.use(requestLogger);
 router.get('/crash-test', () => {
@@ -15,6 +24,12 @@ router.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+
+router.use(cors({
+  origin: allowedCors,
+  credentials: true,
+}));
+
 router.use('/', signInRouter);
 router.use('/', signUpRouter);
 router.use(auth);
