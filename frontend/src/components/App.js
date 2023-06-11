@@ -33,9 +33,9 @@ function App() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [userData, setUserData] = React.useState('');
+    const [isDataLoaded, setIsDataLoaded] = React.useState(false);
     const api = new Api(options)
     const navigate = useNavigate()
-
     const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link
 
     React.useEffect(() => {
@@ -59,15 +59,18 @@ function App() {
             Promise.all([api.getInfoProfile(), api.getInitialCards()])
                 .then(([data, cards]) => {
                     setCurrentUser(data);
-                    setCards(cards);
+                    setCards(cards.data.reverse());
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => console.log(err))
+                .finally(() => {
+                    setIsDataLoaded(true);
+                });
         }
     }, [loggedIn]);
 
     function handleCardLike(card) {
         console.log(card)
-        const isLiked = card.likes.some((i) => i._id === currentUser._id);
+        const isLiked = card.likes.some((i) => i._id === currentUser.user._id);
         if (isLiked) {
             api
                 .deleteLike(card._id)
@@ -112,18 +115,17 @@ function App() {
             .finally(() => setIsLoading(false));
     }
 
-    function handleAddPlace(card) {
+    function handleAddPlace(data) {
         setIsLoading(true);
         api
-            .createCard(card)
+            .createCard(data)
             .then((newCard) => {
-                setCards([newCard, ...cards])
+                setCards([newCard.data, ...cards])
                 closeAllPopups();
             })
             .catch((err) => console.log(err))
             .finally(() => setIsLoading(false));
     }
-
     function handleUpdateAvatar(avatar) {
         setIsLoading(true);
         api
@@ -223,7 +225,7 @@ function App() {
         setUserData('')
         localStorage.removeItem('token')
     }
-
+// console.log(cards)
     return (
 
         <UserContext.Provider value={currentUser}>
@@ -246,12 +248,13 @@ function App() {
                             <ProtectedRoute
                                 element={Main}
                                 cards={cards}
+                                isDataLoaded={isDataLoaded}
                                 onEditAvatar={() => setIsEditAvatarPopupOpen(true)}
                                 onEditProfile={() => setIsEditProfilePopupOpen(true)}
                                 onAddPlace={() => setIsAddPlacePopupOpen(true)}
-                                handleCardClick={() => setSelectedCard}
-                                handleCardLike={() => handleCardLike}
-                                handleDeleteClick={() => handleDeleteCard}
+                                handleCardClick={setSelectedCard}
+                                handleCardLike={handleCardLike}
+                                handleDeleteClick={handleDeleteCard}
                                 loggedIn={loggedIn}
                             />
                         }
