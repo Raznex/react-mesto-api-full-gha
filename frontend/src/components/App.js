@@ -68,65 +68,29 @@ function App() {
         }
     }, [loggedIn]);
 
-    // function handleCardLike(card) {
-    //     const isLiked = card.likes.some((i) => i._id === currentUser.user._id);
-    //     if (isLiked) {
-    //         api
-    //             .deleteLike(card._id)
-    //             .then((newCard) => {
-    //                 setCards((state) =>
-    //                     state.map((c) => (c._id === card._id ? newCard.data : c))
-    //                 );
-    //             })
-    //             .catch((err) => console.log(err));
-    //     } else {
-    //         api
-    //             .setLike(card._id)
-    //             .then((newCard) => {
-    //                 setCards((state) =>
-    //                     state.map((c) => (c._id === card._id ? newCard.data : c))
-    //                 );
-    //             })
-    //             .catch((err) => console.log(err));
-    //     }
-    // }
-    // function handleCardLike(card) {
-    //     const isLiked = card.likes.some((i) => i.id === currentUser.user._id);
-    //     if (isLiked) {
-    //         api
-    //             .deleteLike(card._id)
-    //             .then((newCard) => {
-    //                 setCards((state) =>
-    //                     state.map((c) =>
-    //                         c._id === card._id ? { ...newCard.data, likes: newCard.data.likes.filter((like) => like.id !== currentUser.user._id) } : c
-    //                     )
-    //                 );
-    //             })
-    //             .catch((err) => console.log(err));
-    //     } else {
-    //         api
-    //             .setLike(card._id)
-    //             .then((newCard) => {
-    //                 setCards((state) =>
-    //                     state.map((c) =>
-    //                         c._id === card._id ? { ...newCard.data, likes: [...newCard.data.likes, { id: currentUser.user._id }] } : c
-    //                     )
-    //                 );
-    //             })
-    //             .catch((err) => console.log(err));
-    //     }
-    // }
     function handleCardLike(card) {
-        const isLiked = card.likes.some((i) => i === currentUser.user._id);
-
-        (isLiked ? api.deleteLike(card._id) : api.setLike(card._id, true))
-            .then((newCard) => {
-                setCards((state) =>
-                    state.map((c) => (c._id === newCard.data._id ? newCard.data : c))
-                );
-            })
-            .catch((err) => console.log(err));
+        const isLiked = card.likes.some((i) => i.id === currentUser.user._id);
+        if (isLiked) {
+            api
+                .deleteLike(card._id)
+                .then((newCard) => {
+                    setCards((state) =>
+                        state.map((c) => (c._id === card._id ? newCard.data : c))
+                    );
+                })
+                .catch((err) => console.log(err));
+        } else {
+            api
+                .setLike(card._id)
+                .then((newCard) => {
+                    setCards((state) =>
+                        state.map((c) => (c._id === card._id ? newCard.data : c))
+                    );
+                })
+                .catch((err) => console.log(err));
+        }
     }
+
     function handleDeleteCard(card) {
         api
             .deleteCard(card._id)

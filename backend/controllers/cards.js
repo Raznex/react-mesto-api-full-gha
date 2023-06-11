@@ -75,7 +75,7 @@ module.exports.likeCard = (req, res, next) => {
       cardId,
       {
         $addToSet: {
-          likes: {id: userId},
+          likes: userId,
         },
       },
       {
