@@ -11,15 +11,15 @@ function Main({cards, onEditAvatar, onEditProfile, onAddPlace, handleCardClick, 
             <section className="profile">
                 <div className="profile__card">
                     <button className="profile__container-avatar" type="button" onClick={onEditAvatar}>
-                        <img className="profile__avatar" src={currentUser.user.avatar} alt="Аватар"/>
+                        <img className="profile__avatar" src={currentUser.user && currentUser.user.avatar} alt="Аватар"/>
                     </button>
                     <div className="profile__profile-info">
                         <div className="profile__title">
-                            <h1 className="profile__name">{currentUser.user.name}</h1>
+                            <h1 className="profile__name">{currentUser.user && currentUser.user.name}</h1>
                             <button name='popup-edit-open' type="button" className="profile__edit-button"
                                     onClick={onEditProfile}/>
                         </div>
-                        <p className="profile__profession">{currentUser.user.about}</p>
+                        <p className="profile__profession">{currentUser.user && currentUser.user.about}</p>
                     </div>
                 </div>
                 <button name='popup-add-open' type="button" className="profile__add-button"

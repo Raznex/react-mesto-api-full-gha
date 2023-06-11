@@ -20,7 +20,6 @@ import * as auth from "../utils/Auth.js";
 import ProtectedRoute from "./ProtectedRoute.js";
 
 function App() {
-
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -52,7 +51,6 @@ function App() {
             }
         }
     }, [isOpen])
-
 
     React.useEffect(() => {
         if (loggedIn) {
@@ -137,7 +135,6 @@ function App() {
             .finally(() => setIsLoading(false));
     }
 
-
     function closeAllPopups() {
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
@@ -156,9 +153,9 @@ function App() {
     }
 
     const cbCheckToken = () => {
-        if (localStorage.getItem("token")) {
+        if (localStorage.getItem("jwt")) {
             auth
-                .getToken(localStorage.getItem("token"))
+                .getToken(localStorage.getItem("jwt"))
                 .then((res) => {
                     if (res) {
                         setLoggedIn(true);
@@ -169,9 +166,6 @@ function App() {
                 .catch((err) => console.log(err));
         }
     };
-    React.useEffect(() => {
-        cbCheckToken();
-    }, []);
 
 
     function cbRegister(formValue) {
@@ -179,7 +173,7 @@ function App() {
         auth
             .register(formValue.email, formValue.password)
             .then((res) => {
-                if (res.error === 'Bad Request') {
+                if (res.error === 'Bad Request' || res.error === 'Пользователь с таким электронным адресом уже зарегистрирован') {
                     regSuccess(false);
                 } else {
                     console.log(res)
@@ -219,14 +213,17 @@ function App() {
             .finally(() => setIsLoading(false));
     }
 
+    React.useEffect(() => {
+        cbCheckToken();
+    }, []);
+
     function cbLogout() {
         setLoggedIn(false);
         setUserData('')
-        localStorage.removeItem('token')
+        localStorage.removeItem('jwt')
     }
-// console.log(cards)
-    return (
 
+    return (
         <UserContext.Provider value={currentUser}>
             <div className="page">
                 <InfoToolTip/>
@@ -300,7 +297,6 @@ function App() {
                 />
             </div>
         </UserContext.Provider>
-
     );
 }
 

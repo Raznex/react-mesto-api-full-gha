@@ -10,8 +10,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
     function handleClick() {
         onCardClick(card);
     }
-    console.log(isLiked)
-    console.log(card.likes)
+
     function handleLikeClick() {
         onCardLike(card);
     }
