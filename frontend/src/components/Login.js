@@ -39,7 +39,7 @@ function Login({onLogin, isLogin, isLoading}) {
                     required
                     placeholder="Email"
                     name="email"
-                    value={formValue.email}
+                    value={formValue.email || ""}
                     onChange={handleChange}
                 />
                 <input
@@ -51,7 +51,7 @@ function Login({onLogin, isLogin, isLoading}) {
                     required
                     placeholder="Пароль"
                     name="password"
-                    value={formValue.password}
+                    value={formValue.password || ""}
                     onChange={handleChange}
                 />
                 <button
