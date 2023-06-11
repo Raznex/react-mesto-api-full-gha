@@ -5,6 +5,7 @@ const allowedCors = [
   'http://127.0.0.1:3000',
   'http://mesto.raznex.nomoredomains.rocks',
   'https://mesto.raznex.nomoredomains.rocks',
+  'http://192.168.0.197:3000',
 ];
 
 module.exports = (req, res, next) => {
