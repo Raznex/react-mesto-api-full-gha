@@ -36,7 +36,7 @@ return <Navigate to="/"/>
                     placeholder="Email"
                     name="email"
                     onChange={handleChange}
-                    value={formValue.email}
+                    value={formValue.email || ""}
                 />
                 <input
                     type="password"
@@ -47,7 +47,7 @@ return <Navigate to="/"/>
                     required
                     placeholder="Пароль"
                     name="password"
-                    value={formValue.password}
+                    value={formValue.password || ""}
                     onChange={handleChange}
                 />
                 <button
