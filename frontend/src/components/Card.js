@@ -5,13 +5,13 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
 
     const currentUser = React.useContext(UserContext);
     const isOwn = (card.owner._id || card.owner) === currentUser.user._id;
-    const isLiked = card.likes.some((i) => i.id === currentUser.user._id);
+    const isLiked = card.likes.some(i => i[0] === currentUser.user._id);
     const cardLikeButtonClassName = `element__like-button ${isLiked && "element__like-button_active"}`;
     function handleClick() {
         onCardClick(card);
     }
     console.log(isLiked)
-    console.log(card)
+    console.log(card.likes)
     function handleLikeClick() {
         onCardLike(card);
     }

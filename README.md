@@ -5,12 +5,12 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/Raznex/react-mesto-api-full-gha
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP 158.160.108.249
 
-Frontend https://...
+Frontend https://mesto.raznex.nomoredomains.rocks
 
-Backend https://...
+Backend https://api.mesto.raznex.nomoredomains.rocks
