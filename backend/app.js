@@ -5,7 +5,6 @@ const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/errorHandler');
 const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const limiter = require('./middlewares/rateLimiter');
 
 const PORT = 3000;
 const router = require('./routes/index');
@@ -20,7 +19,6 @@ app.use(requestLogger);
 app.use(helmet());
 app.use(express.json());
 app.use(cors);
-app.use(limiter);
 app.use(router);
 app.use(errorLogger);
 
