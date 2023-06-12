@@ -18,9 +18,9 @@ const app = express();
 
 app.use(requestLogger);
 app.use(helmet());
+app.use(express.json());
 app.use(cors);
 app.use(limiter);
-app.use(express.json());
 app.use(router);
 app.use(errorLogger);
 
